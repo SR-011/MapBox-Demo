@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Mapbox Demo</string>
+    <string name="mapbox_access_token">pk.eyJ1Ijoic3IwMTEiLCJhIjoiY2t1M3ljNWFmMmNvajJ1dGhqMHN1emxrYSJ9.S9GUHPO-D4qOItoEDN0beg</string>
+    <string name="view_map_txt">View Map</string>
+    <string name="departure_point">Departure</string>
+    <string name="destination_point">Destination</string>
+    <string name="weather_message">Weather is very cloudy</string>
+    <string name="flexXec_overlay_txt">FlexExec</string>
+    <string name="viasat_ku_overlay">viaSat ku</string>
+    <string name="normal_map">Normal Map</string>
+
+    <string name="flexexec_image">flex_exec.png</string>
+    <string name="viasat_ku_image">Map_4_2.png</string>
+</resources>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="departure"
+            type="com.example.mapboxdemo.data.model.CurrentWeatherInfo" />
+
+        <variable
+            name="destination"
+            type="com.example.mapboxdemo.data.model.CurrentWeatherInfo" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.mapbox.mapboxsdk.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/departure_card"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/mapbox_blue"
+            app:layout_constraintRight_toLeftOf="@+id/destination_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/first_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title_departure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/departure_point"
+                    android:textSize="16sp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:layout_constraintRight_toRightOf="@id/first_layer"
+                    app:layout_constraintStart_toStartOf="@id/first_layer"
+                    app:layout_constraintEnd_toEndOf="@id/first_layer"
+                    app:layout_constraintTop_toTopOf="@id/first_layer" />
+
+                <TextView
+                    android:id="@+id/departure_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{departure.location.name}"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintRight_toRightOf="@id/first_layer"
+                    app:layout_constraintStart_toStartOf="@id/first_layer"
+                    app:layout_constraintEnd_toEndOf="@id/first_layer"
+                    app:layout_constraintTop_toBottomOf="@+id/title_departure" />
+
+                <TextView
+                    android:id="@+id/departure_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{departure.location.localtime+` LOCAL`}"
+                    android:textScaleX=".9"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="@id/first_layer"
+                    app:layout_constraintStart_toStartOf="@id/first_layer"
+                    app:layout_constraintTop_toBottomOf="@id/departure_location" />
+
+                <TextView
+                    android:id="@+id/departure_weather_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{departure.current.condition.text}"
+                    android:textColor="@color/white"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    app:layout_constraintStart_toStartOf="@id/first_layer"
+                    app:layout_constraintEnd_toStartOf="@id/departure_weather_image"
+                    app:layout_constraintTop_toBottomOf="@id/departure_time"/>
+
+                <ImageView
+                    android:id="@+id/departure_weather_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@+id/departure_weather_info"
+                    app:layout_constraintEnd_toEndOf="@id/first_layer"
+                    app:layout_constraintTop_toBottomOf="@id/departure_time" />
+
+                <TextView
+                    android:id="@+id/departure_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@{Double.toString(departure.current.tempF)+`°F`}"
+                    android:textColor="@color/white"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/first_layer"
+                    app:layout_constraintEnd_toEndOf="@+id/first_layer"
+                    app:layout_constraintStart_toStartOf="@+id/first_layer"
+                    app:layout_constraintTop_toBottomOf="@id/departure_weather_info" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/destination_card"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:backgroundTint="@color/mapbox_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/departure_card"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/second_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title_destination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/destination_point"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textAllCaps="false"
+                    app:layout_constraintRight_toRightOf="@id/second_layer"
+                    app:layout_constraintStart_toStartOf="@id/second_layer"
+                    app:layout_constraintEnd_toEndOf="@id/second_layer"
+                    app:layout_constraintTop_toTopOf="@id/second_layer" />
+
+                <TextView
+                    android:id="@+id/destination_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{destination.location.name}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_marginTop="5dp"
+                    android:textStyle="bold"
+                    app:layout_constraintRight_toRightOf="@id/second_layer"
+                    app:layout_constraintStart_toStartOf="@id/second_layer"
+                    app:layout_constraintEnd_toEndOf="@id/second_layer"
+                    app:layout_constraintTop_toBottomOf="@+id/title_destination" />
+
+                <TextView
+                    android:id="@+id/destination_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{destination.location.localtime+` LOCAL`}"
+                    android:textScaleX=".9"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="@id/second_layer"
+                    app:layout_constraintStart_toStartOf="@id/second_layer"
+                    app:layout_constraintTop_toBottomOf="@id/destination_location" />
+
+                <TextView
+                    android:id="@+id/destination_weather_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{destination.current.condition.text}"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    app:layout_constraintStart_toStartOf="@id/second_layer"
+                    app:layout_constraintEnd_toStartOf="@id/destination_weather_image"
+                    app:layout_constraintTop_toBottomOf="@id/destination_time"/>
+
+                <ImageView
+                    android:id="@+id/destination_weather_image"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintStart_toEndOf="@+id/destination_weather_info"
+                    app:layout_constraintEnd_toEndOf="@id/second_layer"
+                    app:layout_constraintTop_toBottomOf="@id/destination_time" />
+
+                <TextView
+                    android:id="@+id/destination_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@{Double.toString(destination.current.tempF)+`°F`}"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/second_layer"
+                    app:layout_constraintEnd_toEndOf="@+id/second_layer"
+                    app:layout_constraintStart_toStartOf="@+id/second_layer"
+                    app:layout_constraintTop_toBottomOf="@id/destination_weather_info" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
